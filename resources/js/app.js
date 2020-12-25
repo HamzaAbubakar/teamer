@@ -30,3 +30,11 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+$(document).ready(function () {
+    $('input[type="password"]').on('focus', () => {
+        $('*').addClass('password');
+    }).on('focusout', () => {
+        $('*').removeClass('password');
+    });;
+});

@@ -49748,6 +49748,18 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+var app = new Vue({
+  el: '#app'
+});
+$(document).ready(function () {
+  $('input[type="password"]').on('focus', function () {
+    $('*').addClass('password');
+  }).on('focusout', function () {
+    $('*').removeClass('password');
+  });
+  ;
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
