@@ -1,0 +1,10 @@
+.text_short {
+    height: 1em;
+    width: 165px;
+    resize: none;
+    padding: 3px;
+    transition: all 0.5s ease;
+}
+.text_short:focus {
+    height: 4em;
+}

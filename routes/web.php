@@ -18,9 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('reports', 'App\Http\Controllers\ReportsController')->middleware('auth');
+
+Route::resource('user', 'App\Http\Controllers\UserController')->middleware('auth');
 

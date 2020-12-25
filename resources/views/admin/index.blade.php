@@ -44,7 +44,7 @@
                                         <tr>
                                             <td>{{$report_id = $report['id']}}</td>
                                             <td>{{date("D, j M Y",$report['date'])}}</td>
-                                            <td>{{$report['name']}}</td>
+                                            <td>{{$report_name = $report['name']}}</td>
                                             <td>{{date("h:i A",$report['check_in'])}}</td>
                                             <td>{{date("h:i A",$report['check_out'])}}</td>
                                             <td>{{$report['tasks']}}</td>
@@ -57,6 +57,7 @@
                                                 </a>
                                             </td>
                                             <td>
+                                                @if(Auth::user()->name == $report_name)
                                                 <form action="{{ route('reports.destroy', $report_id) }}" method="POST">
                                                     <input name="_method" type="hidden" value="DELETE">
                                                     {{ csrf_field() }}
@@ -64,6 +65,11 @@
                                                         <i class="fas fa-trash"></i>
                                                         </button>
                                                 </form>
+                                                @else
+                                                        <button class="btn btn-secondary btn-circle btn-sm disabled" >
+                                                        <i class="fas fa-ban"></i>
+                                                        </button>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach
@@ -89,29 +95,34 @@
                                     extend: 'print',
                                     text:      '<i class="fa fa-print"></i>',
                                     titleAttr: 'Print',
+                                    messageTop: '<h2>Team Jeesirkar Report</h2>',
                                     exportOptions: {
-                                        columns: ':visible'
+                                        columns: [1,2,3,4,5]
                                     }
                                 },
                                 {
                                     extend:    'copyHtml5',
                                     text:      '<i class="fa fa-files-o"></i>',
-                                    titleAttr: 'Copy'
+                                    titleAttr: 'Copy',
+                                    exportOptions: {
+                                        columns: [1,2,3,4,5]
+                                    }
                                 },
                                 {
                                     extend:    'excelHtml5',
                                     text:      '<i class="fa fa-file-excel-o"></i>',
-                                    titleAttr: 'Excel'
+                                    titleAttr: 'Excel',
+                                    exportOptions: {
+                                        columns: [1,2,3,4,5]
+                                    }
                                 },
                                 {
                                     extend:    'csvHtml5',
                                     text:      '<i class="fa fa-file-text-o"></i>',
-                                    titleAttr: 'CSV'
-                                },
-                                {
-                                    extend:    'pdfHtml5',
-                                    text:      '<i class="fa fa-file-pdf-o"></i>',
-                                    titleAttr: 'PDF'
+                                    titleAttr: 'CSV',
+                                    exportOptions: {
+                                        columns: [1,2,3,4,5]
+                                    }
                                 }
                             ]
                         });

@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> By Hamza Ali</title>
-     <link rel="icon" href="{{ asset('favicon.png') }}" type="image/gif" sizes="16x16">
+    <title> Teamer</title>
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/gif" sizes="16x16">
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
@@ -29,6 +29,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 </head>
 
@@ -41,7 +42,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#" data-toggle="modal" data-target="#userModal">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -53,7 +54,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#reportModal">
                     <i class="fas fa-fw fa-thumbs-up"></i>
                     <span>GOOD BYE</span></a>
             </li>
@@ -114,6 +115,7 @@
             </div>
             <!-- End of Main Content -->
 
+
         </div>
         <!-- End of Content Wrapper -->
 
@@ -125,8 +127,8 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Add Report Modal-->
+    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
         <form method="POST" action="{{ route('reports.store') }}">
@@ -145,7 +147,7 @@
                             <input type="date" class="form-control form-control-user" id="date" name="date" aria-describedby="date" value="<?php echo date('Y-m-d'); ?>">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="name" name="name" aria-describedby="name" placeholder="Name">
+                            <input type="text" class="form-control form-control-user" id="name" name="name" aria-describedby="name" value="{{ Auth::user()->name }}" readonly>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control form-control-user" id="tasks" name="tasks" aria-describedby="taks" placeholder="Task No.">
@@ -171,6 +173,43 @@
         </form>
         </div>
     </div>
+
+    <!-- Add User Modal-->
+    <div class="modal fade" id="userModal" tabindex="-2" role="dialog" aria-labelledby="userModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <form method="POST" action="{{ route('user.store') }}">
+            @csrf {{ csrf_field() }}
+            <input type="hidden" name="operation" value="user_add">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">A New Member?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="user">
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="name" name="name" aria-describedby="name" placeholder="Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control form-control-user" id="email" name="email" aria-describedby="email" value="" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="password" name="password" aria-describedby="password" placeholder="Password">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
